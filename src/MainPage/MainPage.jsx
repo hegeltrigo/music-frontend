@@ -9,12 +9,14 @@ class MainPage extends React.Component {
   }
 
   render() {
-      const { letters } = this.props;
+      const { user, letters } = this.props;
 
       return (
           <div className="col-md-12 ">
+            <Greeting isLoggedIn={user} />,
+
             <p>
-                <Link to="/login">Login</Link>
+
             </p>
             <h1>Lista de canciones</h1>
           </div>
@@ -24,10 +26,49 @@ class MainPage extends React.Component {
 
 
 function mapStateToProps(state) {
-    const { loggingIn } = state.authentication;
+    // const { loggingIn } = state.authentication;
+    // return {
+    //     loggingIn
+    // };
+
+    const { letters, authentication } = state;
+    const { user } = authentication;
     return {
-        loggingIn
+        user,
+        letters
     };
+}
+
+function UserGreeting(props) {
+  return(
+    <Link to="/login">Logout</Link>
+
+
+  );
+}
+
+function GuestGreeting(props) {
+  return(
+
+    <Link to="/login">Login</Link>
+
+  );
+}
+
+function Greeting(props) {
+  let isLoggedIn;
+  if(props.isLoggedIn == undefined){
+    console.log(props);
+    isLoggedIn = false;
+  }
+  else{
+    console.log(props);
+    isLoggedIn = true;
+  }
+  if (isLoggedIn) {
+    return <UserGreeting />;
+  }
+  return <GuestGreeting />;
 }
 
 const connectedMainPage = connect(mapStateToProps)(MainPage);
