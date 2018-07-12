@@ -13,7 +13,7 @@ export function configureFakeBackend() {
 
                     // find if any user matches login credentials
                     let filteredUsers = users.filter(user => {
-                        return user.email === params.email && user.password === params.password;
+                        return user.email === params.user.email && user.password === params.user.password;
                     });
 
                     if (filteredUsers.length) {
@@ -24,12 +24,12 @@ export function configureFakeBackend() {
                             email: user.email,
                             created_at: user.created_at,
                             updated_at: user.updated_at,
-                            token: 'fake-jwt-token'
+                            token: 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIzIiwic2NwIjoidXNlciIsImF1ZCI6bnVsbCwiaWF0IjoxNTMxMzUyOTk1LCJleHAiOjE1MzE0MzkzOTUsImp0aSI6ImNmMmIyYzQ3LTJjNTAtNDhhZi1iY2E1LWE3M2M1ZTE3Mzg1OSJ9.2uSwO-8LBd7P2DeNbtADZwzbcEWxhW7YIVDM141oHzA'
                         };
                         resolve({ ok: true, json: () => Promise.resolve(responseJson) });
                     } else {
                         // else return error
-                        reject('Username or password is incorrect');
+                        reject('Email or password is incorrect');
                     }
 
                     return;
@@ -38,7 +38,7 @@ export function configureFakeBackend() {
                 // get users
                 if (url.endsWith('/users') && opts.method === 'GET') {
                     // check for fake auth token in header and return users if valid, this security is implemented server side in a real application
-                    if (opts.headers && opts.headers.Authorization === 'Bearer fake-jwt-token') {
+                    if (opts.headers && opts.headers.Authorization === 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIzIiwic2NwIjoidXNlciIsImF1ZCI6bnVsbCwiaWF0IjoxNTMxMzUyOTk1LCJleHAiOjE1MzE0MzkzOTUsImp0aSI6ImNmMmIyYzQ3LTJjNTAtNDhhZi1iY2E1LWE3M2M1ZTE3Mzg1OSJ9.2uSwO-8LBd7P2DeNbtADZwzbcEWxhW7YIVDM141oHzA') {
                         resolve({ ok: true, json: () => Promise.resolve(users) });
                     } else {
                         // return 401 not authorised if token is null or invalid

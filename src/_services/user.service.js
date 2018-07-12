@@ -11,7 +11,7 @@ function login(email, password) {
     const requestOptions = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, password })
+        body: JSON.stringify({ user: { email: email, password: password } })
     };
 
     return fetch(`${config.apiUrl}/users/sign_in`, requestOptions)
@@ -20,7 +20,6 @@ function login(email, password) {
             // login successful if there's a jwt token in the response
             if (user.token) {
                 // store user details and jwt token in local storage to keep user logged in between page refreshes
-                console.log(user.token);
                 localStorage.setItem('user', JSON.stringify(user));
             }
 
