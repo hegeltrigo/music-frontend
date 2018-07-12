@@ -17,7 +17,7 @@ class HomePage extends React.Component {
         const { user, users } = this.props;
         return (
             <div className="col-md-6 col-md-offset-3">
-                <h1>Hi {user.firstName}!</h1>
+                <h1>Hi {user.email}!</h1>
                 <p>You're logged in with React & JWT!!</p>
                 <h3>Users from secure api end point:</h3>
                 {users.loading && <em>Loading users...</em>}
@@ -26,7 +26,7 @@ class HomePage extends React.Component {
                     <ul>
                         {users.items.map((user, index) =>
                             <li key={user.id}>
-                                {user.firstName + ' ' + user.lastName}
+                                {user.created_at + ' ' + user.updated_at}
                             </li>
                         )}
                     </ul>

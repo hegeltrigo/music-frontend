@@ -1,5 +1,5 @@
 export function configureFakeBackend() {
-    let users = [{ id: 1, username: 'test', password: 'test', firstName: 'Test', lastName: 'User' }];
+    let users = [{ id: 1, email: 'hegeltrigo@gmail.com', password: 'dianapaula1', created_at: 'creado en', updated_at: 'modificado en' }];
     let realFetch = window.fetch;
     window.fetch = function (url, opts) {
         return new Promise((resolve, reject) => {
@@ -7,13 +7,13 @@ export function configureFakeBackend() {
             setTimeout(() => {
 
                 // authenticate
-                if (url.endsWith('/users/authenticate') && opts.method === 'POST') {
+                if (url.endsWith('/users/sign_in') && opts.method === 'POST') {
                     // get parameters from post request
                     let params = JSON.parse(opts.body);
 
                     // find if any user matches login credentials
                     let filteredUsers = users.filter(user => {
-                        return user.username === params.username && user.password === params.password;
+                        return user.email === params.email && user.password === params.password;
                     });
 
                     if (filteredUsers.length) {
@@ -21,9 +21,9 @@ export function configureFakeBackend() {
                         let user = filteredUsers[0];
                         let responseJson = {
                             id: user.id,
-                            username: user.username,
-                            firstName: user.firstName,
-                            lastName: user.lastName,
+                            email: user.email,
+                            created_at: user.created_at,
+                            updated_at: user.updated_at,
                             token: 'fake-jwt-token'
                         };
                         resolve({ ok: true, json: () => Promise.resolve(responseJson) });
