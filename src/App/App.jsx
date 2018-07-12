@@ -7,6 +7,8 @@ import { alertActions } from '../_actions';
 import { PrivateRoute } from '../_components';
 import { HomePage } from '../HomePage';
 import { LoginPage } from '../LoginPage';
+import { MainPage } from '../MainPage';
+
 
 class App extends React.Component {
     constructor(props) {
@@ -30,8 +32,11 @@ class App extends React.Component {
                         }
                         <Router history={history}>
                             <div>
-                                <PrivateRoute exact path="/" component={HomePage} />
+                                <PrivateRoute exact path="/" component={MainPage} />
                                 <Route path="/login" component={LoginPage} />
+                                <Route path="/profile" component={HomePage} />
+
+
                             </div>
                         </Router>
                     </div>
@@ -49,4 +54,4 @@ function mapStateToProps(state) {
 }
 
 const connectedApp = connect(mapStateToProps)(App);
-export { connectedApp as App }; 
+export { connectedApp as App };
