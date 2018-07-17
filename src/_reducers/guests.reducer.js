@@ -8,7 +8,7 @@ export function guests(state = {}, action) {
       };
     case guestConstants.GETALL_SUCCESS:
       return {
-        items: action.guests
+        items: action.letters
       };
     case guestConstants.GETALL_FAILURE:
       return {

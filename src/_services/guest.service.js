@@ -1,4 +1,6 @@
 import config from 'config';
+import { authHeader } from '../_helpers';
+
 
 export const guestService = {
     getAllLetters
@@ -6,7 +8,8 @@ export const guestService = {
 
 function getAllLetters(){
   const requestOptions = {
-      method: 'GET'
+      method: 'GET',
+      headers: authHeader()
   };
 
   return fetch(`${config.apiUrl}/letters`, requestOptions).then(handleResponse);

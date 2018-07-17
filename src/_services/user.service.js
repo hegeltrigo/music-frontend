@@ -41,15 +41,6 @@ function getAll() {
     return fetch(`${config.apiUrl}/users/index`, requestOptions).then(handleResponse);
 }
 
-function getLetters(){
-  const requestOptions = {
-      method: 'GET',
-      headers: authHeader()
-  };
-
-  return fetch(`${config.apiUrl}/letters`, requestOptions).then(handleResponse);
-}
-
 function handleResponse(response) {
     return response.json().then(data => {
         if (!response.ok) {
