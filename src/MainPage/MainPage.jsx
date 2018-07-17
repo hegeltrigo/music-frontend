@@ -3,12 +3,16 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import Header from '../Global/Header';
-
+import { guestActions } from '../_actions';
 
 
 class MainPage extends React.Component {
   constructor(props) {
       super(props);
+  }
+
+  componentDidMount() {
+      this.props.dispatch(guestActions.getAllLetters());
   }
 
   render() {
@@ -17,19 +21,24 @@ class MainPage extends React.Component {
       return (
 
           <div>
-              <Header title={user}/>
+              <Header user={user}/>
 
               <section>
                 <h2>
-                  Contenido del Sitio Web
+                  Letras
                 </h2>
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Nombre</th>
+                      <th>Autor</th>
+                      <th>Escuchar</th>
+                    </tr>
+                  </thead>
+                  <tbody>
 
-                <Greeting isLoggedIn={user} />,
-
-                <p>
-
-                </p>
-                <h1>Lista de canciones</h1>
+                  </tbody>
+                </table>
               </section>
 
 
@@ -59,38 +68,6 @@ function mapStateToProps(state) {
         user,
         letters
     };
-}
-
-function UserGreeting(props) {
-  return(
-    <Link to="/login">Logout</Link>
-
-
-  );
-}
-
-function GuestGreeting(props) {
-  return(
-
-    <Link to="/login">Login</Link>
-
-  );
-}
-
-function Greeting(props) {
-  let isLoggedIn;
-  if(props.isLoggedIn == undefined){
-    console.log(props);
-    isLoggedIn = false;
-  }
-  else{
-    console.log(props);
-    isLoggedIn = true;
-  }
-  if (isLoggedIn) {
-    return <UserGreeting />;
-  }
-  return <GuestGreeting />;
 }
 
 const connectedMainPage = connect(mapStateToProps)(MainPage);

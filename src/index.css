@@ -5,11 +5,28 @@
   font-family: "Arial", Georgia, Serif;
   font-size: 15px;
 }
+
+
 header {
-  text-align:center;
+  display: flex;
   border: 1px solid #ccc;
-  background: #fafafa
+  width: auto;
 }
+
+#narrow {
+  width: 10%;
+  background: lightblue;
+  text-align: center;
+  padding-top: 2%;
+}
+
+#wide {
+  width: 90%;
+  padding-left: 1%;
+  flex: 1;
+  background: lightgreen;
+}
+
 a {
   color: #333;
   text-decoration: none;

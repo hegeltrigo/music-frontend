@@ -5,14 +5,17 @@ import { connect } from 'react-redux';
 
 class Header extends Component {
 
+  constructor(props) {
+      super(props);
+  }
 
   render() {
     const { user } = this.props;
-    // console.log(this.props);
     return (
-      <div>
-          <header>
-            <h1>lallal</h1>
+          <div>
+            <header>
+            <div id="wide"><h1>LETRAS DE CANCIONES</h1></div>
+            <div id="narrow"><Greeting isLoggedIn={user} /></div>
           </header>
           <nav>
             <ul>
@@ -24,6 +27,38 @@ class Header extends Component {
       </div>
     );
   }
+}
+
+function UserGreeting(props) {
+  return(
+    <Link to="/login">Salir</Link>
+
+
+  );
+}
+
+function GuestGreeting(props) {
+  return(
+
+    <Link to="/login">Login</Link>
+
+  );
+}
+
+function Greeting(props) {
+  let isLoggedIn;
+  if(props.isLoggedIn == undefined){
+    console.log(props);
+    isLoggedIn = false;
+  }
+  else{
+    console.log(props);
+    isLoggedIn = true;
+  }
+  if (isLoggedIn) {
+    return <UserGreeting />;
+  }
+  return <GuestGreeting />;
 }
 
 export default Header;
